@@ -4,6 +4,10 @@ This is a minimal way to run a Minecraft server inside a Docker container with g
 
 It requires you to bring your own server `.jar` and manage the server just like you would outside of Docker. If you're looking for a way to manage your server through `docker-compose.yml`, check out https://github.com/itzg/docker-minecraft-server.
 
+## Requirements
+
+Have [Docker](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/) installed and running.
+
 ## How to run
 
 1. Clone this repository:
@@ -47,3 +51,5 @@ Alternatively, you can use the included `attach.sh` script which shows previous 
 ```bash
 ./attach.sh <container_name>
 ```
+
+Detach with Ctrl+P followed by Ctrl+Q.
