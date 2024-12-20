@@ -1,0 +1,32 @@
+services:
+  minecraft-server:
+    image: container-registry.oracle.com/graalvm/jdk:23
+    # Change the name of the container (useful when running multiple servers)
+    container_name: minecraft-server
+    stdin_open: true
+    tty: true
+    command: ./start.sh
+    restart: unless-stopped
+    # If the server takes more than 30 seconds to stop, increase this value
+    stop_grace_period: 30s
+    environment:
+      # The name of your server jar
+      SERVER_JAR: server.jar
+      # The command sent to the server when the container is stopped
+      # This is typically "stop", but you can change it if you have custom server shutdown commands or plugins
+      STOP_COMMAND: stop
+      # The minimum and maximum memory used by the server
+      # This uses Java's syntax, e.g. 512M, 2G
+      MIN_MEMORY: 2G
+      MAX_MEMORY: 4G
+      # You can also overwrite the default Java args by setting
+      # JAVA_ARGS: -XX:+UnlockExperimentalVMOptions ...
+      # (not recommended unless you're experienced with Java VM options, the defaults usually work well)
+    volumes:
+      - ./start.sh:/app/start.sh
+      - ./data:/data
+    ports:
+      # The server listens on port 25565 by default
+      # You can change this to map to a custom port on your host like this
+      # - <your_port>:25565
+      - 25565:25565
