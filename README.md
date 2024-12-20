@@ -10,6 +10,7 @@ It requires you to bring your own server `.jar` and manage the server just like 
 
 ```bash
 git clone https://github.com/nylyk/minecraft-server-docker.git
+cd minecraft-server-docker
 ```
 
 2. Place your server `.jar` into the `data` folder. (e.g., `data/server.jar`)
