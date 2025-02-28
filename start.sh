@@ -10,12 +10,6 @@ INPUT_PIPE="/tmp/minecraft-input.pipe"
 
 cd /data
 
-if [ ! -e "$SERVER_JAR" ]; then
-  echo "$SERVER_JAR not found!"
-  echo "Place your server jar into data/ and change the SERVER_JAR environment variable accordingly."
-  exit 1
-fi
-
 terminate() {
   echo "Caught SIGTERM signal. Stopping server..."
   echo "$STOP_COMMAND" >> $INPUT_PIPE
@@ -29,15 +23,31 @@ echo "eula=true" > eula.txt
 rm $INPUT_PIPE 2> /dev/null
 mkfifo $INPUT_PIPE
 
-echo "Running java -Xmx$MAX_MEMORY -Xms$MIN_MEMORY $JAVA_ARGS -jar $SERVER_JAR nogui"
-java -Xmx$MAX_MEMORY -Xms$MIN_MEMORY $JAVA_ARGS -jar $SERVER_JAR nogui < $INPUT_PIPE &
+if [ -n "$START_SCRIPT" ]; then
+  if [ ! -e "$START_SCRIPT" ]; then
+    echo "Stat script not found!"
+    exit 1
+  fi
+  
+  echo "Running start script $START_SCRIPT"
+  "/./data/$START_SCRIPT" < $INPUT_PIPE &
+else
+  if [ ! -e "$SERVER_JAR" ]; then
+    echo "$SERVER_JAR not found!"
+    echo "Place your server jar into data/ and change the SERVER_JAR environment variable accordingly."
+    exit 1
+  fi
+
+  echo "Running java -Xmx$MAX_MEMORY -Xms$MIN_MEMORY $JAVA_ARGS -jar $SERVER_JAR nogui"
+  java -Xmx$MAX_MEMORY -Xms$MIN_MEMORY $JAVA_ARGS -jar $SERVER_JAR nogui < $INPUT_PIPE &
+fi
 
 # remember the pid of the server
 server=$!
 
 # redirect stdin to server
 cat <&0 > $INPUT_PIPE &
- 
+
 # wait two times here
 # the first wait will get interrupted by SIGTERM and the trap will execute
 # the second wait waits for the server to actually stop

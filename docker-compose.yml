@@ -22,6 +22,10 @@ services:
       # You can also overwrite the default Java args by setting
       # JAVA_ARGS: -XX:+UnlockExperimentalVMOptions ...
       # (not recommended unless you're experienced with Java VM options, the defaults usually work well)
+
+      # It's possible to use a custom start script instead of running the server jar directly
+      # If this is set SERVER_JAR, MIN_MEMORY, MAX_MEMORY and JAVA_ARGS will be ignored
+      # START_SCRIPT: run.sh 
     volumes:
       - ./start.sh:/app/start.sh
       - ./data:/data
