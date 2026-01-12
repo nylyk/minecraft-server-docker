@@ -28,7 +28,7 @@ cd minecraft-server-docker
 docker compose up -d
 ```
 
-5. Manage your server in the `data` folder. (e.g., change `server.properties`, add mods, ...)
+5. Manage your server in the `data` folder (e.g., change `server.properties`, add mods, ...). Don't forget to restart your server (see below).
 6. That's it!
 
 ## Restarting/stopping the server
