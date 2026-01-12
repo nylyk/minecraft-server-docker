@@ -5,10 +5,9 @@ services:
     container_name: minecraft-server
     stdin_open: true
     tty: true
-    command: ./start.sh
+    command: /opt/start.sh
     restart: unless-stopped
-    # If the server takes more than 30 seconds to stop, increase this value
-    stop_grace_period: 30s
+    stop_grace_period: 120s
     environment:
       # The name of your server jar
       SERVER_JAR: server.jar
@@ -23,14 +22,15 @@ services:
       # JAVA_ARGS: -XX:+UnlockExperimentalVMOptions ...
       # (not recommended unless you're experienced with Java VM options, the defaults usually work well)
 
-      # It's possible to use a custom start script instead of running the server jar directly
+      # It's possible to use a custom start script instead of running the server jar directly (useful for modpacks)
       # If this is set SERVER_JAR, MIN_MEMORY, MAX_MEMORY and JAVA_ARGS will be ignored
       # START_SCRIPT: run.sh 
     volumes:
-      - ./start.sh:/app/start.sh
+      - ./start.sh:/opt/start.sh
       - ./data:/data
     ports:
       # The server listens on port 25565 by default
       # You can change this to map to a custom port on your host like this
       # - <your_port>:25565
+      # If you use mods like Simple Voice Chat, Bluemap, etc. you need to open their ports here too
       - 25565:25565

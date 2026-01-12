@@ -25,7 +25,7 @@ mkfifo $INPUT_PIPE
 
 if [ -n "$START_SCRIPT" ]; then
   if [ ! -e "$START_SCRIPT" ]; then
-    echo "Stat script not found!"
+    echo "Start script not found!"
     exit 1
   fi
   

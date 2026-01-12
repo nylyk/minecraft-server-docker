@@ -1,14 +1,17 @@
 # minecraft-server-docker
 
-This is a minimal way to run a Minecraft server inside a Docker container with graceful shutdown support.
+A simple and minimal way to run a Minecraft server inside a Docker container with graceful shutdown support.
 
 It requires you to bring your own server `.jar` (vanilla, paper, fabric, ...) and manage the server just like you would outside of Docker. If you're looking for a way to manage your server through `docker-compose.yml`, check out https://github.com/itzg/docker-minecraft-server.
 
+**Important:** This is not its own container image but rather a template that provides a `docker-compose.yml` and scripts to make hosting a minecraft server with docker easy.
+
 ## Requirements
 
-Have [Docker](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/) installed and running.
+- [Docker](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/) installed and running
+- A server `.jar` (vanilla, paper, fabric, ...)
 
-## How to run
+## How to use
 
 1. Clone this repository:
 
@@ -40,7 +43,7 @@ docker start <container_name>
 
 Restart and stop will send the `STOP_COMMAND` to the server to stop it gracefully.
 
-Important: If you make changes in `docker-compose.yml`, you need to reapply them by running `docker compose up -d` in the same directory.
+**Important:** If you make changes in `docker-compose.yml`, you need to reapply them by running `docker compose up -d` in the same directory.
 
 ## Accessing the server console
 
